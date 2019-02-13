@@ -1,0 +1,98 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>
+      WC Ext-Grid
+    </title>
+    <script src="ext/build/ext-modern-all.js"></script>
+    <link href="ext/build/modern/theme-material/resources/theme-material-all.css" rel='stylesheet'/>
+    <script>
+      class ExtComponent extends HTMLElement {
+        connectedCallback() {
+          var configJSON = this.getAttribute('config');
+          var configObj = JSON.parse(configJSON);
+
+          configObj.xtype = this.getAttribute('xtype');
+          configObj.title = this.getAttribute('title');
+          configObj.renderTo = this;
+          Ext.create(configObj)
+        }
+      }
+      window.customElements.define('ext-component', ExtComponent)
+    </script>
+  </head>
+  <body>
+    <ext-component
+      xtype="grid"
+      title="Grid with a single config"
+
+      config='
+        {
+          "columns": [
+            {
+              "text": "Name",
+              "width": "250",
+              "dataIndex": "name"
+            },
+            {
+              "text": "Email Address",
+              "flex": "1",
+              "dataIndex": "email"
+            },
+            {
+              "text": "Phone Number",
+              "width": "250",
+              "dataIndex": "phone"
+            }
+          ],
+          "height":"300",
+          "data": [
+            {
+              "name": "Lisa",
+              "email": "[lisa@simpsons.com|mailto:lisa@simpsons.com] ",
+              "phone": "[555-111-1224|tel:5551111224]"
+            },
+            {
+              "name": "Bart",
+              "email": "[bart@simpsons.com|mailto:bart@simpsons.com]",
+              "phone": "[555-222-1234|tel:5552221234]"
+            },
+            {
+              "name": "Homer",
+              "email": "[homer@simpsons.com|mailto:homer@simpsons.com]",
+              "phone": "[555-222-1244|tel:5552221244]"
+            },
+            {
+              "name": "Marge",
+              "email": "[marge@simpsons.com|mailto:marge@simpsons.com]",
+              "phone": "[555-222-1254|tel:5552221254]"
+            }
+          ]
+        }'
+      />
+      <ext-component
+        xtype="tabpanel"
+        config='
+          {
+            "tabBarPosition": "bottom",
+            "defaults": {
+                "styleHtmlContent": true
+            },
+            "height":"100px",
+            "items": [
+              {
+                  "title": "Home",
+                  "iconCls": "home",
+                  "html": "Home Screen"
+              },
+              {
+                  "title": "Contact",
+                  "iconCls": "user",
+                  "html": "Contact Screen"
+              }
+            ],
+            "title": "Grid with a single config"
+          }'
+        />
+  </body>
+</html>
